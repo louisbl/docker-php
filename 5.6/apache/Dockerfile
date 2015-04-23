@@ -34,3 +34,5 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-gd-dir=
     pdo_pgsql \
     pgsql \
     zip
+
+RUN a2enmod rewrite
