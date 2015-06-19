@@ -1,27 +1,22 @@
 FROM php:5.4-fpm
-MAINTAINER ozconseil <louis-beltramo@ozconseil.com>
-
-ENV DEBIAN_FRONTEND noninteractive
+MAINTAINER ozconseil <contact@ozconseil.com>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    bzip2 \
     g++ \
     libbz2-dev \
-    libcurl4-openssl-dev \
     libfreetype6-dev \
     libicu-dev \
     libjpeg62-turbo-dev \
     libmcrypt-dev \
     libpng12-dev \
     libpq-dev \
-    libreadline6-dev \
-    libssl-dev \
-    libxml2-dev \
     libzip-dev \
     zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+RUN mkdir /usr/include/freetype2/freetype && ln -s /usr/include/freetype2/freetype.h /usr/include/freetype2/freetype/freetype.h
+
+RUN docker-php-ext-configure gd --with-jpeg-dir --with-freetype-dir --enable-gd-native-ttf \
     && docker-php-ext-install \
     bz2 \
     gd \
