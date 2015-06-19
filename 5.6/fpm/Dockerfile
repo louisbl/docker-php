@@ -1,5 +1,5 @@
 FROM php:5.6-fpm
-MAINTAINER louisbl <louis@beltramo.me>
+MAINTAINER ozconseil <louis-beltramo@ozconseil.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
