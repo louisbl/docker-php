@@ -1,6 +1,8 @@
 FROM php:5.4-fpm
 MAINTAINER ozconseil <contact@ozconseil.com>
 
+VOLUME ["/var/www"]
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     g++ \
     libbz2-dev \

@@ -1,6 +1,10 @@
 FROM php:5.4-apache
 MAINTAINER ozconseil <opensource@ozconseil.com>
 
+VOLUME ["/var/www"]
+
+EXPOSE 80 443
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     g++ \
     libbz2-dev \
