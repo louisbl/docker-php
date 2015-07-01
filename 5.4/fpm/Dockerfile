@@ -1,5 +1,5 @@
 FROM php:5.4-fpm
-MAINTAINER ozconseil <contact@ozconseil.com>
+MAINTAINER ozconseil <team-dev@ozconseil.com>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     g++ \
