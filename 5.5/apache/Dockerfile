@@ -30,7 +30,3 @@ RUN docker-php-ext-configure gd --with-jpeg-dir --with-freetype-dir --enable-gd-
     zip
 
 RUN a2enmod rewrite
-
-VOLUME ["/var/www"]
-
-EXPOSE 80 443

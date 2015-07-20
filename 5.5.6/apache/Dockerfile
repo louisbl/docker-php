@@ -107,8 +107,6 @@ RUN a2enmod rewrite
 COPY apache2-foreground /usr/local/bin/
 WORKDIR /var/www/html
 
-VOLUME ["/var/www"]
-
-EXPOSE 80 443
+EXPOSE 80
 
 CMD ["apache2-foreground"]

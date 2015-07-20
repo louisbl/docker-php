@@ -96,7 +96,6 @@ COPY php-fpm.conf /usr/local/etc/php-fpm.conf
 WORKDIR /var/www/html
 COPY php-fpm.conf /usr/local/etc/
 
-VOLUME ["/var/www"]
-
 EXPOSE 9000
+
 CMD ["php-fpm"]

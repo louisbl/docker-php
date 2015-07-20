@@ -30,5 +30,3 @@ RUN docker-php-ext-configure gd --with-jpeg-dir --with-freetype-dir --enable-gd-
     zip
 
 COPY php-fpm.conf /usr/local/etc/php-fpm.conf
-
-VOLUME ["/var/www"]
