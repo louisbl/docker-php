@@ -22,7 +22,10 @@ ONBUILD COPY package.json /var/www/
 ONBUILD RUN npm install
 
 ONBUILD COPY . /var/www/
-
 ONBUILD RUN chown -R www-data:www-data /var/www
+
+ONBUILD RUN cd /var/www && composer run-script deploy
+ONBUILD RUN cd /var/www && npm run deploy
+
 ONBUILD RUN find /var/www -type d -exec chmod 755 {} \;
 ONBUILD RUN find /var/www -type f -exec chmod 644 {} \;
