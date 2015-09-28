@@ -17,17 +17,17 @@ RUN cd /tmp && curl -sL https://deb.nodesource.com/setup_0.12 | bash - \
 
 # Use www-data user to install deps
 RUN chown -R www-data:www-data /var/www
-
-# Composer deps
 ONBUILD USER www-data
-ONBUILD COPY auth.json /var/www/
-ONBUILD COPY composer.json /var/www/
-ONBUILD COPY composer.lock /var/www/
-ONBUILD RUN cd /var/www && composer install --no-dev -o
 
 # npm deps
 ONBUILD COPY package.json /var/www/
 ONBUILD RUN npm install
+
+# Composer deps
+ONBUILD COPY auth.json /var/www/
+ONBUILD COPY composer.json /var/www/
+ONBUILD COPY composer.lock /var/www/
+ONBUILD RUN cd /var/www && composer install --no-dev -o
 
 # custom code
 ONBUILD COPY . /var/www/
@@ -36,4 +36,3 @@ ONBUILD COPY . /var/www/
 ONBUILD USER root
 ONBUILD RUN chown -R www-data /var/www
 ONBUILD RUN find /var/www -type d -exec chmod 755 {} \;
-ONBUILD RUN find /var/www -type f -exec chmod 644 {} \;
