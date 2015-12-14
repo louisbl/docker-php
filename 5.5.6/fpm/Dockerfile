@@ -86,6 +86,7 @@ RUN docker-php-ext-configure gd --with-jpeg-dir --with-freetype-dir --enable-gd-
     mbstring \
     mcrypt \
     mysqli \
+    opcache \
     pdo_mysql \
     pdo_pgsql \
     pgsql \
