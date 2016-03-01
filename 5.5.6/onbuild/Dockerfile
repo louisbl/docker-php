@@ -27,7 +27,7 @@ ONBUILD RUN npm install
 ONBUILD COPY auth.json /var/www/
 ONBUILD COPY composer.json /var/www/
 ONBUILD COPY composer.lock /var/www/
-ONBUILD RUN cd /var/www && composer install --no-dev -o
+ONBUILD RUN cd /var/www && composer install --prefer-dist --no-progress --no-dev -o
 
 # custom code
 ONBUILD COPY . /var/www/
