@@ -3,12 +3,13 @@ MAINTAINER ozconseil <team-dev@ozconseil.com>
 
 # Install Git, ssh & mysql clients
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends git openssh-client mysql-client
+  && apt-get install -y --no-install-recommends git openssh-client mysql-client \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer \
-  | php -- --install-dir=/usr/local/bin --filename=composer
-RUN mkdir /var/www/composer-cache \
+  | php -- --install-dir=/usr/local/bin --filename=composer \
+  && mkdir /var/www/composer-cache \
   && composer config -g cache-dir /var/www/composer-cache
 
 # Install Nodejs
@@ -17,8 +18,8 @@ RUN cd /tmp && curl -sL https://deb.nodesource.com/setup_0.12 | bash - \
 
 # Use www-data user to install deps
 RUN chown -R www-data:www-data /var/www
-ONBUILD USER www-data
 
+ONBUILD USER www-data
 # npm deps
 ONBUILD COPY package.json /var/www/
 ONBUILD RUN npm install
@@ -34,5 +35,4 @@ ONBUILD COPY . /var/www/
 
 # Back to the roots
 ONBUILD USER root
-ONBUILD RUN chown -R www-data /var/www
-ONBUILD RUN find /var/www -type d -exec chmod 755 {} \;
+ONBUILD RUN chown -R www-data /var/www/html
