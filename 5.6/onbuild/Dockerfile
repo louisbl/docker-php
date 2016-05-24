@@ -21,7 +21,7 @@ WORKDIR /var/www
 
 # npm deps
 ONBUILD COPY package.json /var/www/
-ONBUILD RUN npm install
+ONBUILD RUN npm install --unsafe-perm
 
 # Composer deps
 ONBUILD COPY auth.json /var/www/
