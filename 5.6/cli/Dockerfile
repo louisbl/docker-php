@@ -31,22 +31,12 @@ RUN docker-php-ext-configure gd --with-jpeg-dir --with-freetype-dir --enable-gd-
     mcrypt \
     mysqli \
     mysql \
-    opcache \
     pdo_mysql \
     xsl \
     zip
 
-# set recommended PHP.ini settings
-# see https://secure.php.net/manual/en/opcache.installation.php
-RUN { \
-		echo 'opcache.memory_consumption=128'; \
-		echo 'opcache.interned_strings_buffer=8'; \
-		echo 'opcache.max_accelerated_files=4000'; \
-		echo 'opcache.revalidate_freq=60'; \
-		echo 'opcache.fast_shutdown=1'; \
-		echo 'opcache.enable_cli=1'; \
-	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 RUN echo "date.timezone = \"Europe/Paris\"" > /usr/local/etc/php/conf.d/timezone.ini
 RUN echo "memory_limit=-1" > /usr/local/etc/php/conf.d/memory-limit.ini
+RUN echo "zend.enable_gc=0" > /usr/local/etc/php/conf.d/disable-gc.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

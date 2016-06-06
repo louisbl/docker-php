@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
    mysql-client \
    nodejs \
   && rm -rf /var/lib/apt/lists/*
+RUN npm install npm -g
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer \
