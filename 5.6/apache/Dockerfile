@@ -45,3 +45,4 @@ RUN { \
 		echo 'opcache.fast_shutdown=1'; \
 		echo 'opcache.enable_cli=0'; \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
+RUN echo "date.timezone = \"Europe/Paris\"" > /usr/local/etc/php/conf.d/timezone.ini
