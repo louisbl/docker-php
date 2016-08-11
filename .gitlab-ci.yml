@@ -1,0 +1,4 @@
+mirror_github:
+  stage: deploy
+  script:
+    - git push --mirror git@github.com:OzConseil/docker-php.git
