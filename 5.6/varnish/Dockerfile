@@ -36,6 +36,7 @@ RUN docker-php-ext-configure gd --with-jpeg-dir --with-freetype-dir --enable-gd-
     bcmath \
     opcache \
     pdo_mysql \
+    mysqli \
     zip
 
 # set recommended PHP.ini settings
