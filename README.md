@@ -92,7 +92,7 @@ Add this line to your Dockerfile:
 
 ### How to install more PHP extensions
 
-We provide two convenient scripts named `docker-php-ext-configure` and `docker-php-ext-install`, you can use them to easily install PHP extension.
+We provide two convenient scripts named `docker-php-ext-configure` and `docker-php-ext-install -j$(nproc)`, you can use them to easily install PHP extension.
 
 For example, if you want to have a PHP-FPM image with `iconv`, `mcrypt` and `gd` extensions, you can inheriting the base image that you like, and write your own `Dockerfile` like this:
 
@@ -104,9 +104,9 @@ RUN apt-get update && apt-get install -y \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libpng12-dev \
-    && docker-php-ext-install iconv mcrypt \
+    && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install gd
+    && docker-php-ext-install -j$(nproc) gd
 CMD ["php-fpm"]
 ```
 

@@ -24,7 +24,7 @@ RUN pecl install apcu \
 
 RUN docker-php-ext-configure gd --with-jpeg-dir --with-freetype-dir --enable-gd-native-ttf \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
-    && docker-php-ext-install \
+    && docker-php-ext-install -j$(nproc) \
     bz2 \
     gd \
     exif \
