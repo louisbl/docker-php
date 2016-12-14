@@ -1,4 +1,4 @@
-FROM louisbl/php:7.0-apache
+FROM louisbl/php:7.1-apache
 MAINTAINER louisbl <louisbl@beltramo.me>
 
 RUN apt-get update && apt-get install -y apt-transport-https

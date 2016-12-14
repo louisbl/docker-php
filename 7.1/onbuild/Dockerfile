@@ -1,15 +1,15 @@
-FROM ozconseil/php:5.5-apache
-MAINTAINER ozconseil <team-dev@ozconseil.com>
+FROM louisbl/php:7.1-apache
+MAINTAINER louisbl <louisbl@beltramo.me>
 
 # Install Nodejs, Git, ssh & mysql clients
-RUN cd /tmp && curl -sL https://deb.nodesource.com/setup_4.x | bash -
+RUN cd /tmp && curl -sL https://deb.nodesource.com/setup_6.x | bash -
 RUN apt-get update && apt-get install -y \
    git \
    openssh-client \
    mysql-client \
    nodejs \
   && rm -rf /var/lib/apt/lists/*
-RUN npm install npm -g
+RUN npm install yarn -g
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer \
@@ -22,7 +22,7 @@ WORKDIR /var/www
 
 # npm deps
 ONBUILD COPY package.json /var/www/
-ONBUILD RUN npm install --unsafe-perm
+ONBUILD RUN yarn
 
 # Composer deps
 ONBUILD COPY auth.json /var/www/

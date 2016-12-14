@@ -1,10 +1,9 @@
-FROM php:5.5-apache
-MAINTAINER ozconseil <team-dev@ozconseil.com>
-
-RUN a2enmod rewrite
+FROM php:7.1-cli
+MAINTAINER louisbl <louisbl@beltramo.me>
 
 RUN apt-get update && apt-get install -y \
     g++ \
+    git \
     imagemagick \
     libbz2-dev \
     libfreetype6-dev \
@@ -15,6 +14,8 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libxslt1-dev \
     libzip-dev \
+    mysql-client \
+    openssh-client \
     zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
 
@@ -29,20 +30,11 @@ RUN docker-php-ext-configure gd --with-jpeg-dir --with-freetype-dir --enable-gd-
     mbstring \
     mcrypt \
     mysqli \
-    mysql \
-    opcache \
     pdo_mysql \
-    xsl \
     zip
 
-# set recommended PHP.ini settings
-# see https://secure.php.net/manual/en/opcache.installation.php
-RUN { \
-		echo 'opcache.memory_consumption=128'; \
-		echo 'opcache.interned_strings_buffer=8'; \
-		echo 'opcache.max_accelerated_files=4000'; \
-		echo 'opcache.revalidate_freq=60'; \
-		echo 'opcache.fast_shutdown=1'; \
-		echo 'opcache.enable_cli=0'; \
-	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 RUN echo "date.timezone = \"Europe/Paris\"" > /usr/local/etc/php/conf.d/timezone.ini
+RUN echo "memory_limit=-1" > /usr/local/etc/php/conf.d/memory-limit.ini
+RUN echo "zend.enable_gc=0" > /usr/local/etc/php/conf.d/disable-gc.ini
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

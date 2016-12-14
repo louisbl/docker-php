@@ -1,5 +1,5 @@
-FROM php:5.5-cli
-MAINTAINER ozconseil <team-dev@ozconseil.com>
+FROM php:7.0-cli
+MAINTAINER louisbl <louisbl@beltramo.me>
 
 RUN apt-get update && apt-get install -y \
     g++ \
@@ -30,9 +30,7 @@ RUN docker-php-ext-configure gd --with-jpeg-dir --with-freetype-dir --enable-gd-
     mbstring \
     mcrypt \
     mysqli \
-    mysql \
     pdo_mysql \
-    xsl \
     zip
 
 RUN echo "date.timezone = \"Europe/Paris\"" > /usr/local/etc/php/conf.d/timezone.ini

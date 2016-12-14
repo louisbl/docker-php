@@ -1,5 +1,5 @@
-FROM php:5.6-fpm
-MAINTAINER ozconseil <team-dev@ozconseil.com>
+FROM php:7.0-fpm
+MAINTAINER louisbl <louisbl@beltramo.me>
 
 RUN apt-get update && apt-get install -y \
     g++ \
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN mkdir /usr/include/freetype2/freetype && ln -s /usr/include/freetype2/freetype.h /usr/include/freetype2/freetype/freetype.h
 
-RUN pecl install apcu-4.0.11 \
+RUN pecl install apcu \
     && docker-php-ext-enable apcu
 
 RUN docker-php-ext-configure gd --with-jpeg-dir --with-freetype-dir --enable-gd-native-ttf \
@@ -104,13 +104,7 @@ RUN { \
 
 RUN a2enmod proxy_fcgi
 
-RUN apt-get update && apt-get install -y apt-transport-https
-RUN curl https://repo.varnish-cache.org/debian/GPG-key.txt | apt-key add -
-RUN echo "deb https://repo.varnish-cache.org/debian/ jessie varnish-4.1" >> /etc/apt/sources.list.d/varnish-cache.list \
-  && apt-get update \
-  && apt-get install -y varnish
-
 COPY apache2-foreground /usr/local/bin/
 WORKDIR /var/www/html
-EXPOSE 80 6081
+EXPOSE 80
 CMD ["apache2-foreground"]
