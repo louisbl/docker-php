@@ -1,4 +1,4 @@
-FROM php:5.6-cli
+FROM php:5.5-cli
 MAINTAINER ozconseil <team-dev@ozconseil.com>
 
 RUN apt-get update && apt-get install -y \

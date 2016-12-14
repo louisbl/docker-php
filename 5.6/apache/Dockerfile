@@ -1,38 +1,48 @@
 FROM php:5.6-apache
-MAINTAINER louisbl <louis@beltramo.me>
+MAINTAINER ozconseil <team-dev@ozconseil.com>
 
-ENV DEBIAN_FRONTEND noninteractive
+RUN a2enmod rewrite
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    bzip2 \
+RUN apt-get update && apt-get install -y \
     g++ \
+    imagemagick \
     libbz2-dev \
-    libcurl4-openssl-dev \
     libfreetype6-dev \
     libicu-dev \
     libjpeg62-turbo-dev \
     libmcrypt-dev \
     libpng12-dev \
     libpq-dev \
-    libreadline6-dev \
-    libssl-dev \
-    libxml2-dev \
+    libxslt1-dev \
     libzip-dev \
     zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+RUN mkdir /usr/include/freetype2/freetype && ln -s /usr/include/freetype2/freetype.h /usr/include/freetype2/freetype/freetype.h
+
+RUN docker-php-ext-configure gd --with-jpeg-dir --with-freetype-dir --enable-gd-native-ttf \
     && docker-php-ext-install \
     bz2 \
     gd \
+    exif \
     intl \
     mbstring \
     mcrypt \
     mysqli \
+    mysql \
     opcache \
     pdo_mysql \
-    pdo_pgsql \
-    pgsql \
+    xsl \
     zip
 
-RUN a2enmod rewrite
+# set recommended PHP.ini settings
+# see https://secure.php.net/manual/en/opcache.installation.php
+RUN { \
+		echo 'opcache.memory_consumption=128'; \
+		echo 'opcache.interned_strings_buffer=8'; \
+		echo 'opcache.max_accelerated_files=4000'; \
+		echo 'opcache.revalidate_freq=60'; \
+		echo 'opcache.fast_shutdown=1'; \
+		echo 'opcache.enable_cli=0'; \
+	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
+RUN echo "date.timezone = \"Europe/Paris\"" > /usr/local/etc/php/conf.d/timezone.ini
