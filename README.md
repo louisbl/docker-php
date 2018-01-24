@@ -25,15 +25,19 @@ For PHP projects run through the command line interface (CLI), you can do the fo
 
 ### Create a `Dockerfile` in your PHP project
 
-  FROM louisbl/php:7.1-cli
-  COPY . /usr/src/myapp
-  WORKDIR /usr/src/myapp
-  CMD [ "php", "./your-script.php" ]
+```
+FROM louisbl/php:7.1-cli
+COPY . /usr/src/myapp
+WORKDIR /usr/src/myapp
+CMD [ "php", "./your-script.php" ]
+```
 
 Then, run the commands to build and run the Docker image:
 
-  docker build -t my-php-app .
-  docker run -it --rm --name my-running-app my-php-app
+```
+docker build -t my-php-app .
+docker run -it --rm --name my-running-app my-php-app
+```
 
 ## With Apache
 
@@ -41,19 +45,25 @@ More commonly, you will probably want to run PHP in conjunction with Apache http
 
 ### Create a `Dockerfile` in your PHP project
 
-  FROM louisbl/php:7.1-apache
-  COPY src/ /var/www/html/
+```
+FROM louisbl/php:7.1-apache
+COPY src/ /var/www/html/
+```
 
 Where `src/` is the directory containing all your php code. Then, run the commands to build and run the Docker image:
 
-  docker build -t my-php-app .
-  docker run -it --rm --name my-running-app my-php-app
+```
+docker build -t my-php-app .
+docker run -it --rm --name my-running-app my-php-app
+```
 
 We recommend that you add a custom `php.ini` configuration. `COPY` it into `/usr/local/etc/php` by adding one more line to the Dockerfile above and running the same commands to build and run:
 
-  FROM louisbl/php:7.1-apache
-  COPY config/php.ini /usr/local/etc/php
-  COPY src/ /var/www/html/
+```
+FROM louisbl/php:7.1-apache
+COPY config/php.ini /usr/local/etc/php
+COPY src/ /var/www/html/
+```
 
 Where `src/` is the directory containing all your php code and `config/` contains your `php.ini` file.
 
